@@ -25,7 +25,7 @@ class controller:
         id = m.login(v.username,v.password)
         if(id>0):
             print("dang nhap thanh cong")
-            self.id1 = id
+            self.id1 = id       #id1 = id v.username
             print("==========")
             self.loginThanhCong()
 
