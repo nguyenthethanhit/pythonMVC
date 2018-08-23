@@ -3,11 +3,11 @@ import time
 class model:
     def __init__(self,db):
         self.db = db
-        self.listF = []
-        self.listTo = []
-        self.listFrom = []
-        self.listCity = []
-        self.sentM = 0
+        self.listF = []     # danh sách bạn bè
+        self.listTo = []     # danh sách người nhận
+        self.listFrom = []  # danh sách người nhận
+        self.listCity = []  # danh sách thành phố
+        self.sentM = 0      # tin nhắn cuối cùng đã gửi
     def open(self):
         self.db = sqlite3.connect('chat.db')
     def dangki(self,username,password,city):
@@ -20,10 +20,7 @@ class model:
         id =0
         db = self.db
         cursor = db.cursor()
-        ##stmt = "select id from user1 where username = %s"
-        #cursor.executemany(stmt, data)
         cursor.execute('''select id from user1 where username = ? ''',(username,))
-        #db.commit()
         while True:
 
             row = cursor.fetchone() #lay ra 1 hang
@@ -103,7 +100,7 @@ class model:
         cursor = db.cursor()
         cursor.execute('''insert into mess1 (id1,id2,mess,time,seen) values(?,?,?,?,'sent')''',(id1,id2,mess,localtime))
         db.commit()
-        self.updateTuongTac(id1,id2)
+        self.updateTuongTac(id1,id2)    # update time tương tác để hiện thị danh sách bạn bè theo thời gian tương tác cuối cùng
 
     def sent(self,id1,id2):
         db = self.db
@@ -117,7 +114,7 @@ class model:
                 break
 
             print(row[0],row[1],row[2])
-            self.sentM = row[0]
+            self.sentM = row[0]     # tin nhắn đã gửi cuối cùng
 
     def showTo(self,id1):
         self.listTo.clear()
@@ -159,7 +156,7 @@ class model:
                 break
 
             print(row[0],row[1])
-        self.updateSeen(id1,id2)
+        self.updateSeen(id1,id2)    #update trạng thái tin nhắn sent -> seen
 
     def updateSeen(self,id1,id2):
         db = self.db
@@ -191,8 +188,7 @@ class model:
         x = 1
         db = self.db
         cursor = db.cursor()
-        cursor.execute(
-            '''select distinct user1.username from user1,friend1 where ((friend1.isFriend = 1 and friend1.id1 = ? and friend1.id2 = user1.id) or (friend1.isFriend = 1 and friend1.id2 = ? and friend1.id1 = user1.id)) and user1.city =?''', (id1,id1,city))
+        cursor.execute('''select distinct user1.username from user1,friend1 where ((friend1.isFriend = 1 and friend1.id1 = ? and friend1.id2 = user1.id) or (friend1.isFriend = 1 and friend1.id2 = ? and friend1.id1 = user1.id)) and user1.city =?''', (id1,id1,city))
         while True:
 
             row = cursor.fetchone()  # lay ra 1 hang
