@@ -7,7 +7,7 @@ m = model(0)
 
 class controller:
     def __init__(self,id1):
-        self.id1 = id1
+        self.id1 = id1      # id1 là id username đăng nhập vào hệ thống
     def register(self):
         v.dangki()
         m.open()
