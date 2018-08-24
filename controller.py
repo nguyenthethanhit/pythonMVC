@@ -116,7 +116,7 @@ class controller:
                 print("to: ",v.username)
                 v.sendMess()
                 m.sendMess(self.id1,id,v.mess)
-                print("send messenger successfully")
+                print("send messages successfully")
         else:
             print("username khong hop le")
     def sendMess2(self):
@@ -137,7 +137,7 @@ class controller:
             id2 = m.checkUserInDB(listF[id-1])
             v.sendMess()
             m.sendMess(self.id1,id2,v.mess)
-            print("send messenger successfully")
+            print("send messages successfully")
 
     def sendMess(self):
         print("press ctrl + N to typing username")
@@ -223,7 +223,7 @@ class controller:
                 if (key == 18):
                     v.sendMess()
                     m.sendMess(self.id1, id2, v.mess)
-                    print("send messenger successfully")
+                    print("send messages successfully")
                     break
                 elif(key == 2):
                     self.loginThanhCong()
